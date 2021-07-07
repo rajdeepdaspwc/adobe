@@ -1,0 +1,521 @@
+
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <title>Building an augmented reality application with the WebXR Device API</title>
+    <style type="text/css">
+      /* Zoom in Keyframes */
+@-webkit-keyframes zoomin {
+  0% {transform: scale(1);}
+  50% {transform: scale(1.2);}
+  100% {transform: scale(1);}
+}
+@keyframes zoomin {
+  0% {transform: scale(1);}
+  50% {transform: scale(1.2);}
+  100% {transform: scale(1);}
+} /*End of Zoom in Keyframes */
+
+/* Zoom out Keyframes */
+@-webkit-keyframes zoomout {
+  0% {transform: scale(1);}
+  50% {transform: scale(0.8);}
+  100% {transform: scale(1);}
+}
+@keyframes zoomout {
+    0% {transform: scale(1);}
+  50% {transform: scale(0.8);}
+  100% {transform: scale(1);}
+}/*End of Zoom out Keyframes */
+  .background-img{
+    /* background: url("./assets/images/ar-back.jpg");
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    left: 0;
+    top: 0;
+    z-index: -1;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-animation: zoomin 30s ease-in infinite;
+    animation: zoomin 30s ease-in infinite; */
+    
+  
+      }
+      #place-button, #replace-button{
+    position: absolute;
+    bottom: 22px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    font-size: 14px;
+    color: #fff;
+    font-weight: bold;
+    width: 80px;
+    padding: 7px;
+    border-radius: 7px;
+    background-color: rgba(255,255,255, .3);
+    border: 3px double #fff;
+  }
+  #place-button .front {
+    padding: 8px 20px !important;
+  }
+
+  #rotate-left{
+    position: absolute;
+    bottom: 22px;
+    left: 15px;
+    border: none;
+    font-size: 14px;
+    color: #fff;
+    padding: 7px;
+    border-radius: 50%;
+    background-color: rgba(255,255,255, .3);
+    border: 3px double #fff;
+    width: 37px;
+    height: 37px;
+  }
+
+  #rotate-right{
+    position: absolute;
+    bottom: 70px;
+    left: 15px;
+    border: none;
+    font-size: 14px;
+    color: #fff;
+    padding: 7px;
+    border-radius: 50%;
+    background-color: rgba(255,255,255, .3);
+    border: 3px double #fff;
+    width: 37px;
+    height: 37px;
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+  }
+
+  #zoom-out{
+    position: absolute;
+    bottom: 22px;
+    right: 15px;
+    border: none;
+    font-size: 18px;
+    color: #fff;
+    font-weight: bold;
+    padding: 7px;
+    border-radius: 50%;
+    background-color: rgba(255,255,255, .3);
+    border: 3px double #fff;
+    width: 37px;
+    height: 37px;
+  }
+
+  #zoom-in{
+    position: absolute;
+    bottom: 70px;
+    right: 15px;
+    border: none;
+    font-size: 18px;
+    color: #fff;
+    font-weight: bold;
+    padding: 7px;
+    border-radius: 50%;
+    background-color: rgba(255,255,255, .3);
+    border: 3px double #fff;
+    width: 37px;
+    height: 37px;
+  }
+
+  .pushable{
+    display: none;
+  }
+
+  
+  .pushable:active .front {
+    transform: translateY(-2px);
+  }
+
+  /* Ripple effect */
+.ripple {
+  background-position: center;
+  transition: background 0.8s;
+}
+
+.ripple:hover {
+  background: #ed691f radial-gradient(circle, transparent 1%, #ed691f 1%) center/15000%;
+}
+
+.ripple:active {
+  background-color: #fff;
+  background-size: 100%;
+  transition: background 0s;
+}
+
+
+#enter-ar{
+  background-color: #ed691f;
+}
+
+.supportmsg{
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0, .5);
+    z-index: 9999999;
+  }
+  .supportmsg .overlay .message{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  padding: 40px;
+  transform: translate(-50%, -50%);
+  max-width: 400px;
+  width: 100%;
+  background-color: #333;
+  color: #c1c1c1;
+  text-align: center;
+  line-height: 1.2;
+  }
+  .supportmsg .overlay .message a{
+    color: yellow;
+  }
+
+  .overlay{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1001;
+  background-color: #fff
+}
+.overlay .messagebox{
+  position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 250px;
+    text-align: center;
+  color:#ed691f;
+  font-weight: bold;
+}
+header {
+   position: absolute;
+   width: 100%;
+   left: 0;
+   top: 0;
+   padding: 14px 0 10px;
+   background-color: #000;
+   z-index: 3;
+}
+ .clearfix::after {
+   content: "";
+   display: block;
+   clear: both;
+}
+ header .logo1 {
+   float: left;
+   margin-left: 60px;
+}
+ header .logo2 {
+   float: right;
+   margin-top: 12px;
+   padding-right: 56px;
+}
+header .show-info{
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translate(0, -50%);
+  background-color: transparent;
+  border: 0;
+  cursor: pointer;
+}
+@media only screen and (max-width: 768px) {
+  header{
+    padding: 12px 0 8px;
+  }
+  header .logo1{
+    margin-left: 20px;
+  }
+  header .logo2{
+    display: none;
+  }
+  .instructions-overlay .instructions{
+    overflow-y: scroll;
+  }
+}
+
+.instructions-overlay{
+  margin: 59px auto 0;
+  padding: 15px;
+  position: relative;
+  z-index: 2;
+  background-color: rgba(255,255,255, .7);
+  min-height: calc(100vh - 204px);
+
+}
+.instructions-overlay .instructions{
+  max-width: 1199px;
+  margin: 0 auto;
+}
+.instructions-overlay .instructions .close-popup{
+  position: absolute;
+  right: 15px;
+  top: 15px;
+}
+.instructions-overlay .instructions .texts{
+  padding: 20px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+.instructions-overlay .instructions .texts ul{
+  padding-left: 20px;
+}
+.instructions h4{
+  font-size: 22px;
+   color: #ed691f;
+   font-weight: bold;
+    margin-top: 0;
+    text-align: center;
+}
+.instructions-overlay .instructions a, .instructions-overlay .instructions .highlight{
+  color: #ed691f;
+  font-size: 18px;
+ 
+}
+.instructions-overlay .instructions .gotit, .instructions-overlay .instructions #ARButtonIos{
+  background-color: #ed691f;
+  color:#fff;
+  text-decoration: none;
+  display: inline-block;
+  border:none;
+  border-radius: 7px;
+  padding: 15px 30px;
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: 15px;
+  cursor: pointer;
+}
+.instructions-overlay .instructions .place-center{
+  text-align: center;
+}
+body > a{
+  background-color: #ed691f !important;
+  color:#fff !important;
+  border:none !important;
+  border-radius: 7px !important;
+  padding: 15px 30px !important;
+  font-size: 16px !important;
+  font-weight: bold !important;
+}
+footer{
+  z-index: 2;
+  top: 100vh;
+  width: 100%;
+  left: 0;
+}
+.copyrights {
+    padding: 0px 20px 10px;
+    text-align: center;
+    background-color: #000;
+    margin-bottom: 0;
+    padding-top: 12px;
+
+}
+.copyrights h5 {
+    line-height: 1;
+    margin: 0;
+    color: #fff;
+    margin: 12px 0;
+}
+.copyrights h5 a {
+    color: #ccc;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 400;
+  display: inline-block;
+  padding: 0 5px;
+}
+.copyrights .social-icons {
+    list-style: none;
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 0;
+  padding: 0;
+}
+.copyrights .social-icons li {
+    margin: 0;
+    text-align: center;
+  background-color: transparent !important;
+  display: inline-block;
+}
+.copyrights .social-icons li:first-child{
+  display: block;
+}
+.copyrights .social-icons > li > a {
+    padding: 0 !important;
+    width: 40px !important;
+    margin: 0 auto !important;
+  color: #c1c1c1;
+  display: block;
+  transform: scale(1);
+  -webkit-transition: all .2s ease;
+  transition: all .2s ease;
+}
+.copyrights .social-icons > li > a:hover{
+  transform: scale(1.5);
+}
+.copyrights .social-icons > li > a > span {
+    width: 25px;
+    height: 28px;
+    margin: 2px;
+    color: #fff;
+    display: inline-block;
+    border-radius: 50%;
+    font-size: 18px;
+    padding-top: 10px;
+    text-align: center;
+}
+.copyrights h6 {
+    color: #afafaf;
+    text-decoration: none;
+    font-size: 11px;
+    margin-bottom: 10px;
+  margin-top: 15px;
+    font-weight: 400;
+}
+
+.backbutton{
+  text-align: center;
+}
+.backbutton a{
+  text-decoration: none;
+  display: inline-block;
+}
+.backbutton a span{
+  font-size: 14px;
+  display: block;
+  margin-top: -15px;
+  border-radius: 25px;
+  background-color: #333;
+  color: #d1d1d1 !important;
+  padding: 10px 20px;
+  text-shadow: 1px 1px 1px #333;
+}
+
+.error-overlay{
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0, .7);
+  z-index: 4;
+}
+.error-overlay .support-message{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 2px 2px 7px rgba(0,0,0, .7);
+  padding: 15px;
+  width: calc(100vw - 60px);
+  max-width: 450px;
+}
+.error-overlay .support-message a{
+  color:#ed691f;
+}
+#unsupported-info .close-popup{
+	position: absolute;
+	right: 15px;
+	top: 15px;
+}
+#qrcode{
+  text-align: center;
+}
+#qrcode img{
+  display: inline-block !important;
+}
+    </style>
+    <link rel="stylesheet" type="text/css" href="./ar/app.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>    
+  </head>
+  <body>
+    <div class="wrapper">
+    <div class="background-img"></div>
+    <div id="enter-ar-info" class="mdc-card demo-card">
+    </div>
+
+      <div id="unsupported-info" class="error-overlay">
+        <div class="support-message">
+          <div class="close-popup">
+            <img src="assets/icons/close.svg" width="30" alt="">
+          </div>
+          <p style="text-align: center;"><img src="./assets/icons/alert.png" width="50" alt="Error!"></p>
+          <p>Your device or browser does not support AR features with WebXR.</p>
+          <p>Please check whether your device has AR Core support by visiting this <a href="https://developers.google.com/ar/discover/supported-devices" target="_blank">supported devices</a> link.
+          <p>If listed, please update your chrome browser to the latest</p>
+          </p>
+          <p><b>or scan this QR code with a supported device</b></p>
+          <div style="text-align: center;" id="qrcode"></div>
+        </div>
+      </div>
+    
+    <div id="stabilization">
+      <div class="gif-image">
+        <img src="./assets/gif/stabilization.gif" alt="Focus on the ground" width="400"><br>
+        <span>Focus on the ground and wave</span>
+      </div>
+    </div>
+    <button type="button" id="place-button" class="pushable">PLACE</button>
+    <button type="button" id="rotate-left" class="pushable"><img src="./assets/icons/rotate-model.svg" alt="<" height="15"></button>
+
+    <button type="button" id="rotate-right" class="pushable"><img src="./assets/icons/rotate-model.svg" alt="<" height="15"></button>
+
+    <button type="button" id="zoom-in" class="pushable">+</button>
+
+    <button type="button" id="zoom-out" class="pushable">-</button>
+    <div id="loading-screen" class="overlay">
+      <div class="messagebox">
+        <br>
+        <span>
+          Please wait, Loading model
+        </span>
+      </div>
+    </div>
+    <div class="instructions-overlay">
+      <div class="instructions">
+        <div class="texts">
+          <h4>Welcome to Augmented Reality Experience</h4>
+          <p><b>Please follow the below steps to experience augmented reality:</b></p>
+          <ul>
+            <li>Click on <span class="highlight">'Start AR'</span> button at the bottom of the screen.</li>
+            <li>Point the camera on a horizontal surface (floor).</li>
+            <li>Wait for the <span class="highlight">white circle</span> and the <span class="highlight">'Place'</span> button to appear on the screen.</li>
+            <li>Move the <span class="highlight">white circle</span> to a desired position and press the <span class="highlight">'Place'</span> button.</li>
+          </ul>
+          </ul>
+          <p class="place-center">
+            <button id="enter-ar" class="gotit">START AR</button>
+            <a id="ARButtonIos" href="3d/car.usdz">START AR</a>
+          </p>
+          <p class="backbutton"><a href="viewin360.html?model="><img src="assets/icons/360-degree.svg" width="75" alt=""><br> <span>View in 360° </span></a></p>
+        </div>
+      </div>
+    </div>
+    <script src="./qrcode/qrcode.min.js"></script>
+    <script src="ar/app.js"></script>
+    
+  </body>
+</html>

@@ -1,0 +1,91 @@
+body {
+  font-family: "Lato", sans-serif;
+  margin: 0;
+  -webkit-user-select: none;
+  user-select: none;
+}
+.wrapper{
+  
+}
+div.demo-card {
+  
+}
+
+#enter-ar-info .mdl-card__title {
+  color: #fff;
+  height: 176px;
+  background-color: rgb(96, 125, 139);
+}
+
+body.unsupported #enter-ar-info {
+  display: none;
+}
+
+body.ar #enter-ar-info {
+  display: none;
+}
+
+#unsupported-info {
+  display: none;
+}
+
+body.unsupported #unsupported-info {
+  display: block;
+}
+
+#info {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translate(-50%, 0);
+  margin: 1em 1em 2em 1em;
+  z-index: 10;
+  display: block;
+  line-height: 2em;
+  text-align: center;
+  display: none;
+  width: 100%;
+}
+
+body.ar #info {
+  display: block;
+}
+
+#info * {
+  color: #fff;
+}
+
+#info span {
+  background-color: rgba(40, 40, 40, 0.4);
+  padding: 0.4em 0.6em;
+  width: 80vw;
+  border-radius: 0.1em;
+}
+
+#stabilization {
+  width: 100%;
+  height: 400px;
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translate(-50%, 0);
+  z-index: 10;
+  display: none;
+}
+#stabilization .gif-image{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 100%;
+  text-align: center;
+}
+#stabilization .gif-image span{
+  display: block;
+  margin-top:-140px;
+  color: #fff;
+  font-size: 18px;
+}
+
+
+#wrong-hosting-root { display: none; }
