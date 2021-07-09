@@ -407,8 +407,8 @@ class App {
       this.pmremGenerator = new THREE.PMREMGenerator( this.renderer );
       //this.scene.environment = this.pmremGenerator.fromScene( this.environment ).texture;
       this.renderer.outputEncoding = THREE.sRGBEncoding;
-      this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
-      this.renderer.toneMappingExposure = 0.6;
+     // this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
+      //this.renderer.toneMappingExposure = 0.6;
 
       // Use the view's transform matrix and projection matrix to configure the THREE.camera.
       this.camera.matrix.fromArray(view.transform.matrix);
