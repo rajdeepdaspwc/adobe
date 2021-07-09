@@ -1,0 +1,15 @@
+{
+    "modelDetails" : [
+        { 
+            "fileName" : "audi",
+            "iconName" : "Cabin-48x48.svg",
+            "buttonText" : "Audi",
+            "description" : "<h3>Audi</h3>",
+            "scale" : [1.5,1.5,1.5],
+            "camera" : [7,3,-5],
+            "dLight1" : [-0.371, 4.118, 7.111],
+            "dLight2" : [2.007, 8.119, -10.539]
+
+        }
+    ]
+}

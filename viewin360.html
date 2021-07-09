@@ -221,7 +221,7 @@
 	}
 	.viewinar{
 		position: absolute;
-		top: -65px;
+		bottom: 65px;
 		left: 50%;
 		transform: translate(-50%, 0);
 	}
@@ -533,18 +533,19 @@
 				<span class="openNav" onclick="openNav()">&#9776;</span>
 				<div id="container" style="position: fixed;">
 					<div class="description-overlay">
-						<div class="description">
+						<!-- <div class="description">
 							<div class="close-popup">
 								<img src="assets/icons/close.svg" width="30" alt="">
 							</div>
 							<h3>Description:</h3>
 							<div class="details"></div>
-						</div>
+						</div> -->
 					</div>
 				</div>
 			</div>
-			<footer>
-				<a class="viewinar" href="ar.html?model="><img src="assets/icons/ar-icon.svg" width="40" alt=""></a>
+						<a class="viewinar" href="ar.html?model="><img src="assets/icons/ar-icon.svg" width="40" alt=""></a>
+
+			<!-- <footer>
 				<ul class="options">
 				</ul>
 				<div class="copyrights">
@@ -580,12 +581,11 @@
 							</ul>
 						</div>
 						<div class="col-sm-7 col-md-8">
-							<!-- <h5><a href="https://www.tatahitachi.co.in/privacy-policy/" target="_blank">Privacy Policy</a> | <a href="https://www.tatahitachi.co.in/disclaimer/" target="_blank">Disclaimer</a></h5> -->
-							<h6>© 2018 Tata Hitachi Construction Machinery  |  All rights reserved.</h6>
+							<h5><a href="https://www.tatahitachi.co.in/privacy-policy/" target="_blank">Privacy Policy</a> | <a href="https://www.tatahitachi.co.in/disclaimer/" target="_blank">Disclaimer</a></h5> 
 						</div>
 					</div>
 				</div>
-			</footer>
+			</footer> -->
 			<div class="overlay">
 				<div class="messagebox">
 					<img src="assets/gif/ajax-loader.gif" alt="Loading ...">
@@ -610,7 +610,7 @@
 		<script type="module">
 
 			import * as THREE from './build/three.module.js';
-			import Stats from './jsm/libs/stats.module.js';
+		//	import Stats from './jsm/libs/stats.module.js';
 			import { RoomEnvironment } from './jsm/environments/RoomEnvironment.js';
 			import { OrbitControls } from './jsm/controls/OrbitControls.js';
 			import { GLTFLoader } from './jsm/loaders/GLTFLoader.js';
@@ -619,7 +619,7 @@
 			import { RoughnessMipmapper } from './jsm/utils/RoughnessMipmapper.js';
 
 			var container;
-			var stats;
+			//var stats;
 			var camera, scene, renderer;
 			var controller;
 			var directionalLight1, directionalLight2, ambientLight;
@@ -756,8 +756,8 @@
 			function init() {
 				container = document.createElement( 'div' );
 				document.getElementById("container").appendChild( container );
-				stats = new Stats();
-				container.appendChild( stats.dom );
+			//	stats = new Stats();
+			//	container.appendChild( stats.dom );
 				scene = new THREE.Scene();
 				window.scene = scene;
 				camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 0.001, 200 );
@@ -799,7 +799,7 @@
 			}
 
 			function render( timestamp, frame ) {
-				stats.update();
+				//stats.update();
 				renderer.render( scene, camera );
 			}
 		</script>
