@@ -609,14 +609,14 @@
 
 		<script type="module">
 
-			import * as THREE from './build/three.module.js';
+			import * as THREE from '/adobe/build/three.module.js';
 		//	import Stats from './jsm/libs/stats.module.js';
 			import { RoomEnvironment } from './jsm/environments/RoomEnvironment.js';
 			import { OrbitControls } from './jsm/controls/OrbitControls.js';
 			import { GLTFLoader } from './jsm/loaders/GLTFLoader.js';
-			import { DRACOLoader } from './jsm/loaders/DRACOLoader.js';
+			import { DRACOLoader } from '/adobe/jsm/loaders/DRACOLoader.js';
 			import { RGBELoader } from './jsm/loaders/RGBELoader.js';
-			import { RoughnessMipmapper } from './jsm/utils/RoughnessMipmapper.js';
+			
 
 			var container;
 			//var stats;
@@ -712,7 +712,8 @@
 						modelDetails = this.responseText;
 					}
 				};
-				xhttp.open("GET", getHostUrl() + getPort() + modelDetailsPath + getUrlParameter("model") + "/" + getUrlParameter("model") + ".json", false);
+				console.log(getHostUrl() + getPort() + "/adobe" + modelDetailsPath + getUrlParameter("model") + "/" + getUrlParameter("model") + ".json");
+				xhttp.open("GET", getHostUrl() + getPort() + "/adobe" + modelDetailsPath + getUrlParameter("model") + "/" + getUrlParameter("model") + ".json", false);
 				xhttp.send();
 			}
 
@@ -722,9 +723,9 @@
 			function loadModel(model){
 				controls.reset();
 				var dracoLoader = new DRACOLoader();
-				dracoLoader.setDecoderPath('/js/libs/draco/');
+				dracoLoader.setDecoderPath('/adobe/js/libs/draco/');
 				dracoLoader.setDecoderConfig({ type: 'js' });
-				var loader = new GLTFLoader().setPath(modelDetailsPath + getUrlParameter("model") + "/");
+				var loader = new GLTFLoader().setPath("/adobe" + modelDetailsPath + getUrlParameter("model") + "/");
 					loader.load( /* model */ model + '.glb', function(glb) {
 					$(".overlay").fadeOut();
 					if(window.innerWidth > 768){
