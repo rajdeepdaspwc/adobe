@@ -515,7 +515,13 @@
 		font-weight: bold;
 	}
 
-
+	.close-button{
+		position: absolute;
+		right: 30px;
+		top: 30px;
+		transform: translate(-50%, -50%);
+		z-index: 30;
+	}
 		
 	</style>
 </head>
@@ -533,62 +539,13 @@
 				<span class="openNav" onclick="openNav()">&#9776;</span>
 				<div id="container" style="position: fixed;">
 					<div class="description-overlay">
-						<!-- <div class="description">
-							<div class="close-popup">
-								<img src="assets/icons/close.svg" width="30" alt="">
-							</div>
-							<h3>Description:</h3>
-							<div class="details"></div>
-						</div> -->
 					</div>
 				</div>
 			</div>
-						<a class="viewinar" href="ar.html?model="><img src="assets/icons/ar-icon.svg" width="40" alt=""></a>
-
-			<!-- <footer>
-				<ul class="options">
-				</ul>
-				<div class="copyrights">
-					<div class="row">
-						<div class="col-sm-5 col-md-4">
-							<ul class="social-icons">
-								<li><h6>Follow us :</h6></li>
-								<li>
-									<a href="https://www.facebook.com/TataHitachiCorporate/" target="_blank" rel="noopener noreferrer">
-										<i class="fa fa-facebook" aria-hidden="true"></i>
-									</a>
-								</li>
-								<li>
-									<a href="https://twitter.com/Tata_Hitachi_IN" target="_blank" rel="noopener noreferrer">
-										<i class="fa fa-twitter" aria-hidden="true"></i>
-									</a>
-								</li>
-								<li>
-									<a href="https://www.youtube.com/channel/UCYE6DtE-X3JXinUFzVGsffQ" target="_blank" rel="noopener noreferrer">
-										<i class="fa fa-youtube-play" aria-hidden="true"></i>
-									</a>
-								</li>
-								<li>
-									<a href="https://www.linkedin.com/company/telcon/" target="_blank" rel="noopener noreferrer">
-										<i class="fa fa-linkedin-square" aria-hidden="true"></i>
-									</a>
-								</li>
-								<li>
-									<a href="https://www.instagram.com/tatahitachicorporate/" target="_blank" rel="noopener noreferrer">
-										<i class="fa fa-instagram" aria-hidden="true"></i>
-									</a>
-								</li>
-							</ul>
-						</div>
-						<div class="col-sm-7 col-md-8">
-							<h5><a href="https://www.tatahitachi.co.in/privacy-policy/" target="_blank">Privacy Policy</a> | <a href="https://www.tatahitachi.co.in/disclaimer/" target="_blank">Disclaimer</a></h5> 
-						</div>
-					</div>
-				</div>
-			</footer> -->
+			<a class="viewinar" href="ar.html?model="><img src="assets/icons/ar-icon.svg" width="40" alt=""></a>
 			<div class="overlay">
 				<div class="messagebox">
-					<img src="assets/gif/ajax-loader.gif" alt="Loading ...">
+					<!-- <img src="assets/gif/ajax-loader.gif" alt="Loading ..."> -->
 					<br>
 					<span>
 						Please wait, Loading model
@@ -596,17 +553,7 @@
 				</div>
 			</div>
 		</div>
-
-		<script>
-			function openNav() {
-			  document.getElementById("mySidenav").style.width = "290px";
-			}
-			
-			function closeNav() {
-			  document.getElementById("mySidenav").style.width = "0";
-			}
-		</script>
-
+		<a class="close-button" href="https://author-p34764-e132001.adobeaemcloud.com/content/wrkshpemeaptrsd/us/en/products.html?wcmmode=disabled"><img src="assets/icons/close.svg" width="30" alt=""></a>
 		<script type="module">
 
 			import * as THREE from '/adobe/build/three.module.js';
